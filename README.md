@@ -1,2 +1,2 @@
-# Calendar-Project
-Count time blocks and see visual feedback
+# Calendar Project
+ Help visualize time blocking
