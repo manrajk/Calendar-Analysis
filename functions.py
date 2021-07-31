@@ -1,7 +1,32 @@
+from os import walk
 from icalendar import Calendar
 import datetime
 import pandas as pd
 
+
+
+def dataframeCreator(selectFile):
+    # Opens file and sets it up for reading
+    g = open(selectFile,'rb')
+    gcal = Calendar.from_ical(g.read())
+
+    # Creates a dateframe with relevant data from ics file
+    df = pd.DataFrame(columns=['Name','Start Time','End Time','Date','Time Elapsed'])
+    for component in gcal.walk():
+        if component.name == "VEVENT":
+
+            # Gets the important information and puts into variables
+            name = str(component.get('summary')).lower()
+            start = component.get('dtstart').dt
+            end = component.get('dtend').dt
+            date = datetime.date(component.get('dtstart').dt.year, component.get('dtstart').dt.month, component.get('dtstart').dt.day)
+            time_elapsed = end-start
+
+            d = {'Name':name, 'Start Time':start, 'End Time':end, 'Date':date, 'Time Elapsed':time_elapsed}
+            df = df.append(d, ignore_index=True)
+
+    g.close()
+    return df
 
 
 def bubbleSort(arr):
