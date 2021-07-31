@@ -18,4 +18,4 @@ endDate = datetime.date(2021,5,26)
 selectFile = 'CalendarFiles/may18.ics'
 
 temp1 = dataframeCreator(selectFile)
-temp = getEventsAndTimes(selectFile, keywords, startDate, endDate)
+temp = getEventsAndTimes(temp1, keywords, startDate, endDate)
