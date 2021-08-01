@@ -9,6 +9,7 @@ The word  philosophy has  phy in it
 from functions import *
 import datetime
 import pandas as pd
+import time
 
 
 
@@ -18,4 +19,17 @@ endDate = datetime.date(2021,5,26)
 selectFile = 'CalendarFiles/may18.ics'
 
 temp1 = dataframeCreator(selectFile)
+tik = time.perf_counter()
 temp = getEventsAndTimes(temp1, keywords, startDate, endDate)
+tok = time.perf_counter()
+print(f"Dataframe method {tok-tik:0.4f}")
+
+
+
+import tryAgainst
+
+print()
+tik = time.perf_counter()
+temp2 = tryAgainst.getEventsAndTimes(selectFile,keywords,startDate,endDate)
+tok = time.perf_counter()
+print(f"Reader method {tok-tik:0.4f}")
