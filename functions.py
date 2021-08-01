@@ -43,6 +43,10 @@ def bubbleSort(arr):
 
 
 def getEventsAndTimes(df, keywords, startDate, endDate=datetime.date.today()):
+    '''
+    This will return 3 things: eventsAndTime, eventsAndTitles and dayLongEvents
+    The first two are dictionaries and the last is a list
+    '''
 
     # Setting up variables and needed data
     eventsAndTime = {}
