@@ -1,4 +1,3 @@
-from os import walk
 from icalendar import Calendar
 import datetime
 import pandas as pd
@@ -6,12 +5,16 @@ import pandas as pd
 
 
 def dataframeCreator(selectFile):
+    
+
     # Opens file and sets it up for reading
     g = open(selectFile,'rb')
     gcal = Calendar.from_ical(g.read())
 
     # Creates a dateframe with relevant data from ics file
-    df = pd.DataFrame(columns=['Name','Start Time','End Time','Date','Time Elapsed'])
+    builtDictionary = {}
+    counter = 0
+
     for component in gcal.walk():
         if component.name == "VEVENT":
 
@@ -23,9 +26,12 @@ def dataframeCreator(selectFile):
             time_elapsed = end-start
 
             d = {'Name':name, 'Start Time':start, 'End Time':end, 'Date':date, 'Time Elapsed':time_elapsed}
-            df = df.append(d, ignore_index=True)
+            builtDictionary[counter] = d
+            counter += 1
 
     g.close()
+    df =  pd.DataFrame.from_dict(builtDictionary,'index')
+
     return df
 
 
@@ -43,10 +49,6 @@ def bubbleSort(arr):
 
 
 def getEventsAndTimes(df, keywords, startDate, endDate=datetime.date.today()):
-    '''
-    This will return 3 things: eventsAndTime, eventsAndTitles and dayLongEvents
-    The first two are dictionaries and the last is a list
-    '''
 
     # Setting up variables and needed data
     eventsAndTime = {}
