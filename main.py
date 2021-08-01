@@ -24,12 +24,3 @@ temp = getEventsAndTimes(temp1, keywords, startDate, endDate)
 tok = time.perf_counter()
 print(f"Dataframe method {tok-tik:0.4f}")
 
-
-
-import tryAgainst
-
-print()
-tik = time.perf_counter()
-temp2 = tryAgainst.getEventsAndTimes(selectFile,keywords,startDate,endDate)
-tok = time.perf_counter()
-print(f"Reader method {tok-tik:0.4f}")
