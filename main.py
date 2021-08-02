@@ -18,7 +18,9 @@ startDate = datetime.date(2021, 1, 1)
 endDate = datetime.date(2021,5,26)
 selectFile = 'CalendarFiles/may18.ics'
 
+tik = time.perf_counter()
 completeDataframe = dataframeCreator(selectFile)
 eventsAndTimes, eventsAndTitles, dayLongEvents = getEventsAndTimes(completeDataframe, keywords, startDate, endDate)
-
+tok = time.perf_counter()
+print(f"{tok-tik:0.4f}")
 
