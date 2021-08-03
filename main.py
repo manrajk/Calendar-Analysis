@@ -6,21 +6,26 @@ Some that I personally noticed are
 The word physics has cs in it
 The word  philosophy has  phy in it
 """
-from functions import *
+from calendarParser import *
 import datetime
 import pandas as pd
-import time
+from modes import *
 
 
 
-keywords = ["phy", "math", "cas", "phil", "cs"]
-startDate = datetime.date(2021, 1, 1)
-endDate = datetime.date(2021,5,26)
-selectFile = 'CalendarFiles/may18.ics'
+def main():
+    keywords = ["phy", "math", "cas", "phil", "cs"]
+    startDate = datetime.date(2021, 1, 1)
+    endDate = datetime.date(2021,5,18)
+    selectFile = 'CalendarFiles/may18.ics'
 
-tik = time.perf_counter()
-completeDataframe = dataframeCreator(selectFile)
-eventsAndTimes, eventsAndTitles, dayLongEvents = getEventsAndTimes(completeDataframe, keywords, startDate, endDate)
-tok = time.perf_counter()
-print(f"{tok-tik:0.4f}")
 
+    completeDataframe = dataframeCreator(selectFile)
+    eventsAndTimes, eventsAndTitles, dayLongEvents = getEventsAndTimes(completeDataframe, keywords, startDate, endDate)
+
+    neDF = getSectionData(completeDataframe, keywords, startDate, endDate, weeks=1)
+    return neDF
+
+
+if __name__ == '__main__':
+    main()

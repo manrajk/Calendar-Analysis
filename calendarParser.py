@@ -60,7 +60,7 @@ def getEventsAndTimes(df, keywords, startDate, endDate=datetime.date.today()):
     bubbleSort(keywords)
 
     # Opens file and sets it up for reading
-    df = df[ (df['Date'] > startDate) & (df['Date'] < endDate) ]
+    df = df[ (df['Date'] >= startDate) & (df['Date'] < endDate) ]
     
     for d in df.to_dict('records'):
 
