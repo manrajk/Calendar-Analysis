@@ -10,23 +10,24 @@ from calendarParser import *
 import datetime
 import pandas as pd
 from modes import *
+import time
 
 
 
-def main():
-    keywords = ["phy", "math", "cas", "phil", "cs"]
-    startDate = datetime.date(2021, 1, 1)
-    endDate = datetime.date(2021,5,18)
-    selectFile = 'CalendarFiles/may18.ics'
 
+keywords = ["phy", "math", "cas", "phil", "cs"]
+startDate = datetime.date(2021, 1, 1)
+endDate = datetime.date(2021,5,18)
+selectFile = 'CalendarFiles/may18.ics'
 
-    completeDataframe = dataframeCreator(selectFile)
-    eventsAndTimes, eventsAndTitles, dayLongEvents = getEventsAndTimes(completeDataframe, keywords, startDate, endDate)
+tik = time.perf_counter()
+completeDataframe = dataframeCreator(selectFile)
+eventsAndTimes, eventsAndTitles, dayLongEvents = getEventsAndTimes(completeDataframe, keywords, startDate, endDate)
 
-    neDF, graphDF = getSectionData(completeDataframe, keywords, startDate, endDate, weeks=1)
-    return neDF, graphDF
-
-
-if __name__ == '__main__':
-    x, y= main()
+dataDF = getSectionData(completeDataframe, keywords, startDate, endDate, weeks=1)
+tok = time.perf_counter()
+print(f"{tok-tik:0.4f}")
     
+
+
+ 

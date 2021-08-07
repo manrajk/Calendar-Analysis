@@ -1,3 +1,4 @@
+from logging import error
 from typing import Counter
 from numpy.core.numeric import full
 import pandas as pd
@@ -23,13 +24,14 @@ def getSectionData(fullDF,keywords, startDate,endDate,days=0,weeks=0):
     # Lambda that checks if this is within the same year
     labelMaker = lambda p1, p2: f'{p1.month}/{p1.day} to {p2.month}/{p2.day}' if startDate.year == endDate.year else f'{p1.month}/{p1.day}/{p1.year} to {p2.month}/{p2.day}/{p2.year}'
 
-
-    # Moves pointer throughout the start to endDates
+    # Moves pointer throughout the start to endDates in segments determined from arguments
     while endDate >= pointer2:
         
+        # Gets Data for segment
         eventsAndTimes, eventsAndTitles, dayLongEvents = getEventsAndTimes(fullDF, keywords, pointer1, pointer2)
         fullDictionary[counter] = eventsAndTimes
 
+        # Creates time label for segment and moves pointers
         columnNames.append( labelMaker(pointer1, pointer2) )
         pointer1 = pointer2
         pointer2 += delta
@@ -47,38 +49,34 @@ def getSectionData(fullDF,keywords, startDate,endDate,days=0,weeks=0):
 
     # Putting together all of the columns into place
     finalDF = pd.DataFrame.from_dict(fullDictionary)
-    graphingDF = finalDF.T
-    graphingDF['Time'] = columnNames
     finalDF.columns = columnNames
-    graphingDF = reorganizer(graphingDF, keywords)
+    return finalDF
 
-    graphing(graphingDF, keywords, columnNames)
-    return finalDF,graphingDF
 
-    
-def graphing(df, keywords, timeLabels):
+def graphing(selectionDF):
     sns.set_theme(style='darkgrid')
     
-    ax = sns.barplot(x='Time', y='Numbering', hue='Labels', data=df)
-    ax.set_xticklabels(timeLabels, rotation=45, ha='right')
+    graphingDF = selectionDF.T
+    foundKeywords = graphingDF.columns.to_series()
+    foundKeywords = foundKeywords.drop('misc', errors='ignore')
 
 
-    plt.tight_layout()
-    plt.show()
+    if len(foundKeywords) > 0:
+        numberingSeries = pd.Series(dtype='float64')
+        labelSeries = pd.Series()
 
+        for x in foundKeywords:
+            numberingSeries = numberingSeries.append( graphingDF[x], ignore_index=True )
+            labelSeries = labelSeries.append( pd.Series([x for i in range(len( graphingDF.index ))]), ignore_index=True )
 
-def reorganizer(df, keywords):
-    numberingSeries = pd.Series(dtype='float64')
-    labelSeries = pd.Series()
+        reorganizedDF = pd.DataFrame(columns=['Labels', 'Numbering', 'Time'])
+        reorganizedDF['Time'] = pd.concat( [graphingDF.index.to_series()]*len(foundKeywords), ignore_index=True )
+        reorganizedDF['Numbering'] = numberingSeries
+        reorganizedDF['Labels'] = labelSeries
+        ax = sns.barplot(x='Time', y='Numbering', hue='Labels', data=reorganizedDF)
+        ax.set_xticklabels(graphingDF.index, rotation=45, ha='right')
 
-    for x in keywords:
-        numberingSeries = numberingSeries.append( df[x], ignore_index=True )
-        labelSeries = labelSeries.append( pd.Series([x for i in range(len(df.index))]), ignore_index=True )
-
-    reorganizedDF = pd.DataFrame(columns=['Labels', 'Numbering', 'Time'])
-    reorganizedDF['Time'] = pd.concat( [df['Time']]*len(keywords), ignore_index=True )
-    reorganizedDF['Numbering'] = numberingSeries
-    reorganizedDF['Labels'] = labelSeries
-
-
-    return reorganizedDF
+        plt.tight_layout()
+        plt.show()
+    else:
+        return 'No matching Keywords'
