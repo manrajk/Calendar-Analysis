@@ -46,21 +46,39 @@ def getSectionData(fullDF,keywords, startDate,endDate,days=0,weeks=0):
         print('Something strange is happening')
 
     # Putting together all of the columns into place
-    finalDF = pd.DataFrame.from_dict(fullDictionary, 'columns')
+    finalDF = pd.DataFrame.from_dict(fullDictionary)
+    graphingDF = finalDF.T
+    graphingDF['Time'] = columnNames
     finalDF.columns = columnNames
+    graphingDF = reorganizer(graphingDF, keywords)
 
-    graphing(finalDF, keywords)
-    return finalDF
+    graphing(graphingDF, keywords, columnNames)
+    return finalDF,graphingDF
 
     
-def graphing(df, keywords):
+def graphing(df, keywords, timeLabels):
     sns.set_theme(style='darkgrid')
-    ax = None
-    for keyword in keywords:
-        ax = sns.relplot(x=df.columns, y=df.loc[keyword], kind='line')
-
-    ax.set_xticklabels(df.columns, rotation=45, ha='right')
+    
+    ax = sns.barplot(x='Time', y='Numbering', hue='Labels', data=df)
+    ax.set_xticklabels(timeLabels, rotation=45, ha='right')
 
 
     plt.tight_layout()
     plt.show()
+
+
+def reorganizer(df, keywords):
+    numberingSeries = pd.Series(dtype='float64')
+    labelSeries = pd.Series()
+
+    for x in keywords:
+        numberingSeries = numberingSeries.append( df[x], ignore_index=True )
+        labelSeries = labelSeries.append( pd.Series([x for i in range(len(df.index))]), ignore_index=True )
+
+    reorganizedDF = pd.DataFrame(columns=['Labels', 'Numbering', 'Time'])
+    reorganizedDF['Time'] = pd.concat( [df['Time']]*len(keywords), ignore_index=True )
+    reorganizedDF['Numbering'] = numberingSeries
+    reorganizedDF['Labels'] = labelSeries
+
+
+    return reorganizedDF

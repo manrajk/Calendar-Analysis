@@ -23,9 +23,10 @@ def main():
     completeDataframe = dataframeCreator(selectFile)
     eventsAndTimes, eventsAndTitles, dayLongEvents = getEventsAndTimes(completeDataframe, keywords, startDate, endDate)
 
-    neDF = getSectionData(completeDataframe, keywords, startDate, endDate, weeks=1)
-    return neDF
+    neDF, graphDF = getSectionData(completeDataframe, keywords, startDate, endDate, weeks=1)
+    return neDF, graphDF
 
 
 if __name__ == '__main__':
-    main()
+    x, y= main()
+    
