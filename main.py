@@ -24,7 +24,7 @@ tik = time.perf_counter()
 completeDataframe = dataframeCreator(selectFile)
 eventsAndTimes, eventsAndTitles, dayLongEvents = getEventsAndTimes(completeDataframe, keywords, startDate, endDate)
 
-dataDF = getSectionData(completeDataframe, keywords, startDate, endDate, weeks=1)
+dataDF = SelectionData(completeDataframe, keywords, startDate, endDate, weeks=1)
 tok = time.perf_counter()
 print(f"{tok-tik:0.4f}")
     
