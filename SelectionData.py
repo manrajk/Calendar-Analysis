@@ -6,7 +6,6 @@ import seaborn as sns
 import datetime
 from icalendar import Calendar
 from tools import bubbleSort
-from numpy.core.numeric import full
 
 
 class SelectionData:
