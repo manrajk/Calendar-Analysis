@@ -6,10 +6,9 @@ Some that I personally noticed are
 The word physics has cs in it
 The word  philosophy has  phy in it
 """
-from calendarParser import *
+from SelectionData import SelectionData
 import datetime
 import pandas as pd
-from modes import *
 import time
 
 
@@ -21,10 +20,7 @@ endDate = datetime.date(2021,5,18)
 selectFile = 'CalendarFiles/may18.ics'
 
 tik = time.perf_counter()
-completeDataframe = dataframeCreator(selectFile)
-eventsAndTimes, eventsAndTitles, dayLongEvents = getEventsAndTimes(completeDataframe, keywords, startDate, endDate)
-
-dataDF = SelectionData(completeDataframe, keywords, startDate, endDate, weeks=1)
+dataDF = SelectionData(selectFile)
 tok = time.perf_counter()
 print(f"{tok-tik:0.4f}")
     
