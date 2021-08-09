@@ -199,15 +199,18 @@ class SelectionData:
         if firstDate == None:
             firstDate = nameAndDatesDF.iloc[0]['Date']
         end = datetime.date.today()
+
         dateList = [firstDate + datetime.timedelta(days=x) for x in range( (end - firstDate).days )]
 
         # Keep track of what has a steak based on keywords
         '''
         streaks
         name,startDate,length of streak
+        'phy':[2021-1-1,4]
 
         unactiveStreaks
         name,startDate,list of length of streak
+        'phy':[(),()]
         '''
 
         bubbleSort(keywords)
@@ -236,10 +239,43 @@ class SelectionData:
                 if yes clear streaks
 
             '''
+            tempStreak = {}
+            keywordsNotUsed = keywords.copy()
 
-        
+            if dfAtDate.empty:
+                for key, value in streaks.items():
+                    if key in unactiveStreaks.keys():
+                        unactiveStreaks[key].append( value )
+                    else:
+                        unactiveStreaks[key] = [value]
+                streaks = {}
+            else:
+                for d in dfAtDate.to_dict('records'):
+                    for keyword in keywordsNotUsed:                        
+                        if keyword in d['Name']:
+                            if keyword in streaks.keys():
+                                tempStreak[keyword] = streaks[keyword]
+                                tempStreak[keyword][1] += 1
+                            else:
+                                tempStreak[keyword] = [date,1]
+                            keywordsNotUsed.remove(keyword)
+                            break
+
+            for key in  streaks.keys():
+                if key not in tempStreak.keys():
+                    if key in unactiveStreaks.keys():
+                        unactiveStreaks[key].append( streaks[key] )
+                    else:
+                        unactiveStreaks[key] = [ streaks[key] ]
+
+            streaks = tempStreak
+
+        return streaks, unactiveStreaks
 
     
+
+
+    # Possibly to integrate auto Streak Finder
     # def autoStreakFinder(self,firstDate=None):
 
     #     # DataFrame with only 'Name' and 'Date'

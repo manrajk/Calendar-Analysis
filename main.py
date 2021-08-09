@@ -15,7 +15,7 @@ import time
 keywords = ["phy", "math", "cas", "phil", "cs"]
 startDate = datetime.date(2021, 8, 1)
 endDate = datetime.date(2021,8,18)
-selectFile = 'CalendarFiles/testingCal.ics'
+selectFile = 'CalendarFiles/may18.ics'
 
 tik = time.perf_counter()
 dataDF = SelectionData(selectFile)
