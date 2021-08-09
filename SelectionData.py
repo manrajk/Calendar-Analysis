@@ -1,3 +1,4 @@
+from numpy.lib.utils import info
 import pandas as pd
 import numpy as np
 import pandas as pd
@@ -35,6 +36,9 @@ class SelectionData:
         g.close()
         df =  pd.DataFrame.from_dict(builtDictionary,'index')
 
+        # Sorting it by date
+        df = df.sort_values('Date')
+
         # Sets up attributes
         self.rawCalendarDF = df
         self.segmentedDF = None
@@ -50,6 +54,7 @@ class SelectionData:
         # Sorting keywords from biggest length to smallest
         # This is to prevent problems described in the docString
         bubbleSort(keywords)
+        keywords = list((map(lambda x: x.lower(), keywords)))
 
         # Opens file and sets it up for reading
         df = self.rawCalendarDF[ (self.rawCalendarDF['Date'] >= startDate) & (self.rawCalendarDF['Date'] < endDate) ]

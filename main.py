@@ -8,16 +8,14 @@ The word  philosophy has  phy in it
 """
 from SelectionData import SelectionData
 import datetime
-import pandas as pd
 import time
 
 
 
-
 keywords = ["phy", "math", "cas", "phil", "cs"]
-startDate = datetime.date(2021, 1, 1)
-endDate = datetime.date(2021,5,18)
-selectFile = 'CalendarFiles/may18.ics'
+startDate = datetime.date(2021, 8, 1)
+endDate = datetime.date(2021,8,18)
+selectFile = 'CalendarFiles/testingCal.ics'
 
 tik = time.perf_counter()
 dataDF = SelectionData(selectFile)
