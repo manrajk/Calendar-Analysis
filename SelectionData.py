@@ -188,3 +188,73 @@ class SelectionData:
             plt.show()
         else:
             return 'No matching Keywords'
+
+    
+    def keywordStreakFinder(self,keywords,firstDate=None):
+
+        # DataFrame with only 'Name' and 'Date'
+        nameAndDatesDF = self.rawCalendarDF.drop(['Start Time','End Time','Time Elapsed'],axis=1)
+
+        # Making range of dates
+        if firstDate == None:
+            firstDate = nameAndDatesDF.iloc[0]['Date']
+        end = datetime.date.today()
+        dateList = [firstDate + datetime.timedelta(days=x) for x in range( (end - firstDate).days )]
+
+        # Keep track of what has a steak based on keywords
+        '''
+        streaks
+        name,startDate,length of streak
+
+        unactiveStreaks
+        name,startDate,list of length of streak
+        '''
+
+        bubbleSort(keywords)
+        keywords = list((map(lambda x: x.lower(), keywords)))
+
+        streaks = {}
+        unactiveStreaks = {}
+
+        # Parse
+        for date in dateList:
+            dfAtDate = nameAndDatesDF[ nameAndDatesDF['Date'] == date ]
+            '''
+            
+            Check if dfAtDate is empty
+                if no make needed changes
+                    go through dfAtDate events
+                        go through keywords
+                            make temp dict with new streaks
+                            if keyword is in events 
+                                check if it is in streaks 
+                                if it is add that info and the new tally to the temp
+                                else add to temp
+                                break
+
+
+                if yes clear streaks
+
+            '''
+
+        
+
+    
+    # def autoStreakFinder(self,firstDate=None):
+
+    #     # DataFrame with only 'Name' and 'Date'
+    #     nameAndDatesDF = self.rawCalendarDF.drop(['Start Time','End Time','Time Elapsed'],axis=1)
+
+    #     # Making range of dates
+    #     if firstDate == None:
+    #         firstDate = nameAndDatesDF.iloc[0]['Date']
+    #     end = datetime.date.today()
+    #     dateList = [firstDate + datetime.timedelta(days=x) for x in range( (end - firstDate).days )]
+
+    #     # Keep track of what has a steak based on same 'Name' in DataFrame
+    #     streaks = {}
+    #     unactiveStreaks = {}
+
+    #     # Parse
+
+        
