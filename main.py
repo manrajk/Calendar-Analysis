@@ -18,7 +18,7 @@ endDate = datetime.date(2021,8,18)
 selectFile = 'CalendarFiles/may18.ics'
 
 tik = time.perf_counter()
-dataDF = SelectionData(selectFile)
+dataDF = CalendarData(selectFile)
 tok = time.perf_counter()
 print(f"{tok-tik:0.4f}")
     

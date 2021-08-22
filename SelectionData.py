@@ -9,7 +9,7 @@ from icalendar import Calendar
 from tools import bubbleSort
 
 
-class SelectionData:
+class CalendarData:
     def __init__(self,selectFile):
         # Opens file and sets it up for reading
         g = open(selectFile,'rb')
