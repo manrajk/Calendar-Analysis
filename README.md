@@ -18,7 +18,7 @@ Help visualize time blocking
 
     - 'days' and 'weeks' are optional. This is how you want to increment the calendar. If you want to see weekly statistics, then make weeks=1, or daily information make days=1. Maybe you want to see a breakdown of 1 week and 3 days, you just do days=3 weeks=1. If left blank it will the segment will be the entire time frame from start to end.
 
-4. You can see a graph displaying the segmented data created from the 'calendarSegmenter' by using the 'graphing' method. Running the 'calendarSegmenter' is required to see the graph.
+4. You can see a graph displaying the segmented data created from the 'calendarSegmenter' by using the 'graphing' method. Running the 'calendarSegmenter' is required to see the graph. At the bottom of this file is an example of how the graph looks.
 
 5. Another feature is the ability to see if you have been staying consistent in doing your activities. Use the 'keywordStreakFinder' method, which requires the parameters 'keywords' and 'firstDate'. 
 
@@ -28,6 +28,8 @@ Help visualize time blocking
         
         For example: 
         Suppose some of my events have the word 'physics' in them. And I am searching for the keywords=['cs', 'phil', 'cas']. The events with the word physics would be counted toward the cs category because physics has the word cs in it. To avoid instances like this, have your keywords= ['cs', 'phil', 'cas', 'phy'] The order of the strings in the list do not matter as it is taken care of in the backend.
+
+![Example Graph Image](images/example.png)
 
 # Potential Additions 
 * Multi Calendar Support
