@@ -11,17 +11,33 @@ import datetime
 import time
 
 
+def main():
+    # Example code
+    keywords = ["phy", "math", "cas", "phil", "cs"]
+    startDate = datetime.date(2021, 1, 1)
+    endDate = datetime.date(2021,5,18)
+    selectFilePath = 'CalendarFiles/may18.ics'
 
-keywords = ["phy", "math", "cas", "phil", "cs"]
-startDate = datetime.date(2021, 8, 1)
-endDate = datetime.date(2021,8,18)
-selectFile = 'CalendarFiles/may18.ics'
+    # Creates CalendarData object using file path
+    dataDF = CalendarData(selectFilePath)
 
-tik = time.perf_counter()
-dataDF = CalendarData(selectFile)
-tok = time.perf_counter()
-print(f"{tok-tik:0.4f}")
-    
+    # See raw data from the calendar
+    print(dataDF.rawCalendarDF)
+
+    # Seperates and filters raw calendar data
+    dataDF.calendarSegmenter(keywords, startDate, endDate, weeks=1)
+
+    # Display graph
+    dataDF.graphing()
+
+    # See event streaks
+    print(dataDF.keywordStreakFinder(keywords,startDate))
+
+
+
+
+if __name__ == '__main__':
+    main()
 
 
  
