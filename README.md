@@ -29,7 +29,7 @@ Help visualize time blocking
         For example: 
         Suppose some of my events have the word 'physics' in them. And I am searching for the keywords=['cs', 'phil', 'cas']. The events with the word physics would be counted toward the cs category because physics has the word cs in it. To avoid instances like this, have your keywords= ['cs', 'phil', 'cas', 'phy'] The order of the strings in the list do not matter as it is taken care of in the backend.
 
-# Upcoming
+# Potential Additions 
 * Multi Calendar Support
 * Google Calendar Support
 * User Interface
