@@ -1,7 +1,10 @@
-# Calendar Project
-Help visualize time blocking
+# Calendar Analysis Project
+Sometimes time races past you, and before you know it, the day is over. This project is to help visualize where your time is going and hopefully help you stay motivated!
 
-# Walk Through
+### Backstory
+At the start of this year, I decided I would try time blocking. Time blocking is a time management method where you split your day into blocks of time for specific tasks. I did this mainly to be more organized for my classes, but I also wanted to visually see where I was spending my time and how much time I was spending on these specific tasks. That is where this project comes in. Now I can see graphs of how each week is going, how much total time I have spent on particular classes, and if I have had any 'streaks' of doing the same task every day consecutively. I hope that this can be helpful to others that use time blocking or frequently put events into their online calendars to get the most out of their day.
+
+## Walk Through
 1. Create CalendarData object. It needs the file path to the iCalendar, also known as the .ics file.
 
 2. This object has two attributes, 'rawCalendarDF' and 'segmentedDF'.  
@@ -29,9 +32,12 @@ Help visualize time blocking
         For example: 
         Suppose some of my events have the word 'physics' in them. And I am searching for the keywords=['cs', 'phil', 'cas']. The events with the word physics would be counted toward the cs category because physics has the word cs in it. To avoid instances like this, have your keywords= ['cs', 'phil', 'cas', 'phy'] The order of the strings in the list do not matter as it is taken care of in the backend.
 
-![Example Graph Image](images/example.png)
 
-# Potential Additions 
+## Example Graph showing time spent on classes
+![Example Graph Image](Images/example.png)
+
+
+## Potential Additions 
 * Multi Calendar Support
 * Google Calendar Support
 * User Interface
