@@ -177,11 +177,11 @@ class CalendarData:
                 numberingSeries = numberingSeries.append( graphingDF[x], ignore_index=True )
                 labelSeries = labelSeries.append( pd.Series([x for i in range(len( graphingDF.index ))]), ignore_index=True )
 
-            reorganizedDF = pd.DataFrame(columns=['Labels', 'Numbering', 'Time'])
+            reorganizedDF = pd.DataFrame(columns=['Labels', 'Hours', 'Time'])
             reorganizedDF['Time'] = pd.concat( [graphingDF.index.to_series()]*len(foundKeywords), ignore_index=True )
-            reorganizedDF['Numbering'] = numberingSeries
+            reorganizedDF['Hours'] = numberingSeries
             reorganizedDF['Labels'] = labelSeries
-            ax = sns.barplot(x='Time', y='Numbering', hue='Labels', data=reorganizedDF)
+            ax = sns.barplot(x='Time', y='Hours', hue='Labels', data=reorganizedDF)
             ax.set_xticklabels(graphingDF.index, rotation=45, ha='right')
 
             plt.tight_layout()
@@ -271,26 +271,3 @@ class CalendarData:
             streaks = tempStreak
 
         return streaks, unactiveStreaks
-
-    
-
-
-    # Possibly to integrate auto Streak Finder
-    # def autoStreakFinder(self,firstDate=None):
-
-    #     # DataFrame with only 'Name' and 'Date'
-    #     nameAndDatesDF = self.rawCalendarDF.drop(['Start Time','End Time','Time Elapsed'],axis=1)
-
-    #     # Making range of dates
-    #     if firstDate == None:
-    #         firstDate = nameAndDatesDF.iloc[0]['Date']
-    #     end = datetime.date.today()
-    #     dateList = [firstDate + datetime.timedelta(days=x) for x in range( (end - firstDate).days )]
-
-    #     # Keep track of what has a steak based on same 'Name' in DataFrame
-    #     streaks = {}
-    #     unactiveStreaks = {}
-
-    #     # Parse
-
-        
