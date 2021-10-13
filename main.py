@@ -13,10 +13,10 @@ import time
 
 def main():
     # Example code
-    keywords = ["phy", "math", "cas", "phil", "cs"]
-    startDate = datetime.date(2021, 1, 1)
-    endDate = datetime.date(2021,5,18)
-    selectFilePath = 'CalendarFiles/may18.ics'
+    keywords = ["221", "360", "ArtH", "Geo", "270"]
+    startDate = datetime.date(2021, 8, 1)
+    endDate = datetime.date.today()
+    selectFilePath = 'CalendarFiles/oct13.ics'
 
     # Creates CalendarData object using file path
     dataDF = CalendarData(selectFilePath)
